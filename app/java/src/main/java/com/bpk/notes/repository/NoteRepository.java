@@ -1,7 +1,6 @@
 package com.bpk.notes.repository;
 
 import com.bpk.notes.model.Note;
-import jdk.Exported;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

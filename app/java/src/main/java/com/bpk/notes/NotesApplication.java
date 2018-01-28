@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AwsTrainingNotesApplication {
+public class NotesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AwsTrainingNotesApplication.class, args);
+		SpringApplication.run(NotesApplication.class, args);
 	}
 }

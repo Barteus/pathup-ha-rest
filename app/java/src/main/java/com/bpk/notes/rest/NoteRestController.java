@@ -4,6 +4,9 @@ import com.bpk.notes.model.Note;
 import com.bpk.notes.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -25,19 +29,27 @@ public class NoteRestController {
 
     @CrossOrigin
     @RequestMapping(value = {""}, method = RequestMethod.GET, produces = "application/json")
-    public List<Note> getNotes() {
+    public ResponseEntity<List<Note>> getNotes() {
         Iterable<Note> all = noteRepository.findAll();
         List<Note> notes = new ArrayList<>();
         for (Note note : all) {
             notes.add(note);
         }
-        System.out.println("Server name: " + serverName);
-        return notes;
+
+        return new ResponseEntity<>(notes, headers(), HttpStatus.OK);
     }
 
     @CrossOrigin
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public Note postNote(@RequestBody Note note) {
-        return noteRepository.save(note);
+    public ResponseEntity<Note> postNote(@RequestBody Note note) {
+        final Note result = noteRepository.save(note);
+        return new ResponseEntity<>(result, headers(), HttpStatus.OK);
     }
+
+    private LinkedMultiValueMap<String, String> headers() {
+        final LinkedMultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        headers.put("server-name", Collections.singletonList(serverName));
+        return headers;
+    }
+
 }
