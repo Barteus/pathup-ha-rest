@@ -3,7 +3,12 @@ package com.bpk.notes.rest;
 import com.bpk.notes.model.Note;
 import com.bpk.notes.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +20,9 @@ public class NoteRestController {
     @Autowired
     private NoteRepository noteRepository;
 
+    @Value("${server.name}")
+    private String serverName;
+
     @CrossOrigin
     @RequestMapping(value = {""}, method = RequestMethod.GET, produces = "application/json")
     public List<Note> getNotes() {
@@ -23,13 +31,13 @@ public class NoteRestController {
         for (Note note : all) {
             notes.add(note);
         }
+        System.out.println("Server name: " + serverName);
         return notes;
     }
 
     @CrossOrigin
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public Note postNote(@RequestBody Note note) {
-        Note saved = noteRepository.save(note);
-        return saved;
+        return noteRepository.save(note);
     }
 }
