@@ -8,6 +8,6 @@ import javax.transaction.Transactional;
 
 @RepositoryRestResource(exported = false)
 @Transactional
-public interface NoteRepository extends CrudRepository<Note, Integer> {
+public interface H2NoteRepository extends NoteRepository, CrudRepository<Note, Integer> {
 
 }

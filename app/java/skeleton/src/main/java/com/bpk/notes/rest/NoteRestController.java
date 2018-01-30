@@ -13,16 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/notes")
 public class NoteRestController {
 
     @Autowired
-    private NoteRepository noteRepository;
+    private NoteRepository repository;
 
     @Value("${server.name}")
     private String serverName;
@@ -30,11 +31,8 @@ public class NoteRestController {
     @CrossOrigin
     @RequestMapping(value = {""}, method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<Note>> getNotes() {
-        Iterable<Note> all = noteRepository.findAll();
-        List<Note> notes = new ArrayList<>();
-        for (Note note : all) {
-            notes.add(note);
-        }
+        final List<Note> notes = StreamSupport.stream(repository.findAll().spliterator(), false)
+                                              .collect(Collectors.toList());
 
         return new ResponseEntity<>(notes, headers(), HttpStatus.OK);
     }
@@ -42,7 +40,7 @@ public class NoteRestController {
     @CrossOrigin
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public ResponseEntity<Note> postNote(@RequestBody Note note) {
-        final Note result = noteRepository.save(note);
+        final Note result = repository.save(note);
         return new ResponseEntity<>(result, headers(), HttpStatus.OK);
     }
 
