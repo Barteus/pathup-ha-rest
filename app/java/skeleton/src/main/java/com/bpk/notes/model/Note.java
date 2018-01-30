@@ -16,7 +16,7 @@ public class Note {
 
     @Id
     @GeneratedValue
-    private long id;
+    private String id;
     private String username;
     private String content;
 }
