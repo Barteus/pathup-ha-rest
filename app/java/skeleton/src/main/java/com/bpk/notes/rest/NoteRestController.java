@@ -3,6 +3,7 @@ package com.bpk.notes.rest;
 import com.bpk.notes.model.Note;
 import com.bpk.notes.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import java.util.stream.StreamSupport;
 @RequestMapping("/notes")
 public class NoteRestController {
 
+    @Qualifier("h2NoteRepository")
     @Autowired
     private NoteRepository repository;
 

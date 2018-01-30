@@ -2,7 +2,7 @@
 
 ## Build artifact from code ##
 Build application using: 
->`gradlew clean build`
+> `gradlew clean build`
 
 Artifact can be found as `build/libs/notes-app-1.0.jar`
 
@@ -13,6 +13,6 @@ Run application with optional param server.name
 Param server.name is always added as response header to identify which server answered.
 Default value is `default`
 
-## REST API Documentation in Swagger
+## REST API Documentation in Swagger ##
 After running application locally you can open documentation in swagger-ui
 > http://localhost:8080/swagger-ui.html 
