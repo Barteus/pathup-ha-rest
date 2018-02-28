@@ -17,7 +17,7 @@ You can also add --profile to all your AWS CLI api calls.
 
 >aws dynamodb create-table \
      --table-name Notes \
-     --attribute-definitions AttributeName=NoteId,AttributeType=N \
+     --attribute-definitions AttributeName=NoteId,AttributeType=S \
      --key-schema AttributeName=NoteId,KeyType=HASH \
      --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
      
