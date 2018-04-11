@@ -21,9 +21,11 @@ public class DynamoDBConfig {
     @Bean
     public AmazonDynamoDB amazonDynamoDB() {
         return AmazonDynamoDBClientBuilder.standard()
-                .withCredentials(new ProfileCredentialsProvider())
-                .withRegion(region)
-                .build();
+                                          //remove credential for EC2 usage! done only for local development,
+                                          // should be replaced by spring profile/@OnMissingBean
+//                                          .withCredentials(new ProfileCredentialsProvider())
+                                          .withRegion(region)
+                                          .build();
     }
 
     @Bean
@@ -31,9 +33,9 @@ public class DynamoDBConfig {
         final DynamoDBMapperConfig.TableNameOverride tableNamePrefix = DynamoDBMapperConfig.TableNameOverride
                 .withTableNamePrefix(prefix);
         final DynamoDBMapperConfig dynamoDBMapperConfig = DynamoDBMapperConfig.builder()
-                .withTableNameOverride(tableNamePrefix)
-                .withConversionSchema(ConversionSchemas.V2)
-                .build();
+                                                                              .withTableNameOverride(tableNamePrefix)
+                                                                              .withConversionSchema(ConversionSchemas.V2)
+                                                                              .build();
         return new DynamoDBMapper(amazonDynamoDB, dynamoDBMapperConfig);
     }
 }

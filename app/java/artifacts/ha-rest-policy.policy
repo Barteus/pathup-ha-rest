@@ -1,0 +1,26 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "artifacts",
+            "Effect": "Allow",
+            "Action": [
+                "s3:*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::bpk-ha-rest-artifacts/*",
+                "arn:aws:s3:::bpk-ha-rest-artifacts"
+            ]
+        },
+        {
+            "Sid": "dynamo",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:*"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:eu-west-1:890769921003:table/Notes"
+            ]
+        }
+    ]
+}

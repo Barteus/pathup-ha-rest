@@ -49,6 +49,7 @@ public class NoteRestController {
     private LinkedMultiValueMap<String, String> headers() {
         final LinkedMultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         headers.put("server-name", Collections.singletonList(serverName));
+        headers.put("app-version", Collections.singletonList("1.1"));
         return headers;
     }
 
